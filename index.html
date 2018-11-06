@@ -1,0 +1,125 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RPS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+<body>
+
+    <p id="formatTest">
+        Please press (r)ock, (p)aper, or (s)cissors!
+    </p>
+    <p class="format">
+        <span id="who-won">game pending.....</span>
+    </p>
+    <p class="format">
+        Hello!
+    </p>
+
+    <script type="text/javascript">
+
+        // initialize the win counters and move array
+        var userWin = 0;
+        var compWin = 0;
+        var tieCount = 0;
+
+        var moveOptions = ['r','p','s'];
+
+        // tell the computer what field to update with win information
+        var winText = document.getElementById("who-won");
+
+        // prompt the user move 
+
+        document.onkeyup = function(event) {
+            
+            // randomize the computer's move
+            var compMove = moveOptions[Math.floor(Math.random()*(2 - 0 + 1) + 0)];
+            console.log(compMove);
+            
+            console.log(event.key);
+
+            // if the user entered an RPS, start the game!
+            if (event.key === 'r' || event.key === 'p' || event.key === 's') {
+
+                // reset the color of the instructions
+                document.getElementById("formatTest").style.color = "black";
+                var userMove = event.key;
+                
+                // check to see what the win conditions are 
+                if (userMove === compMove) {
+                    var outcome = "Tie";
+                    tieCount += 1;
+                }
+
+                else if (userMove === 'r' && compMove === 's') {
+                    var outcome = "User Win";
+                    userWin += 1;
+                }
+                else if (userMove === 'r' && compMove === 'p') {
+                    var outcome = "Comp Win";
+                    compWin += 1;
+                }
+
+                else if (userMove === 's' && compMove === 'r') {
+                    var outcome = "Comp Win";
+                    compWin += 1;
+                }
+                else if (userMove === 's' && compMove === 'p') {
+                    var outcome = "User Win";
+                    userWin += 1;
+                }
+
+                else if (userMove === 'p' && compMove === 'r') {
+                    var outcome = "User Win";
+                    userWin += 1;
+                }
+                else if (userMove === 'p' && compMove === 's') {
+                    var outcome = "Comp Win";
+                    compWin += 1;
+                }
+
+                // Update the text!
+                winText.textContent = outcome + "! user wins: " + userWin + ". comp wins: " + compWin + ". tie counts: " + tieCount;
+            }
+
+            // if the user enters something else, make the instructions red
+            else {
+                document.getElementById("formatTest").style.color = "red";
+                //console.log(document.getElementsByClassName("format").length);
+
+                // // set the color of the additional lines
+                // for (i = 0; i < document.getElementsByClassName("format").length; i++) {
+                //     document.getElementsByClassName("format")[i].style.color = "green";
+                // }
+            }
+
+            if (outcome === "User Win") {
+                for (i = 0; i < document.getElementsByClassName("format").length; i++) {
+                    document.getElementsByClassName("format")[i].style.color = "green";
+                }
+            }
+            else if (outcome === "Comp Win") {
+                for (i = 0; i < document.getElementsByClassName("format").length; i++) {
+                    document.getElementsByClassName("format")[i].style.color = "orange";
+                }
+            }
+            else {
+                for (i = 0; i < document.getElementsByClassName("format").length; i++) {
+                    document.getElementsByClassName("format")[i].style.color = "gray";
+                }
+            }
+        }
+
+
+    
+    </script>
+    
+</body>
+</html> 
